@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: Partyn API
+  description: The Partyn API provides a comprehensive interface for managing and accessing event data.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+    description: Local development server
+
+externalDocs:
+  url: https://swagger.io/specification/
+  description: Find more information about OAS3.0 standard.
+
+
+tags:
+  - name: Event
+    description: Handles core application operations related to event management
+
+
+paths:
+  /events:
+    get:
+      operationId: getEvents
+      tags:
+        - Event
+      summary: Queries all events.
+      description: Selects all events stored in a database and returns them as an array.
+      responses:
+        '200':
+          description: Successful query returns an array of events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+
+    post:
+      operationId: addEvent
+      tags:
+        - Event
+      summary: Submits new events.
+      description: Submits new event
+      requestBody:
+        description: A new event information.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '201':
+          description: Successfully submitted events return an instance with given id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+
+
+
+
+components:
+  schemas:
+
+    Event:
+      type: object
+      required:
+        - name
+        - dateTime
+        - ticketPrice
+        - description
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        dateTime:
+          type: string
+          format: date-time
+        ticketPrice:
+          type: integer
+        description:
+          type: string
+
+
+
+
+  
