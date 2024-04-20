@@ -29,9 +29,9 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Event> getSpecificEvent(@PathVariable Integer id){
+    public ResponseEntity<EventDto> getSpecificEvent(@PathVariable Integer id){
         return eventService.getEventById(id)
-                .map(ResponseEntity::ok)
+                .map(event -> ResponseEntity.ok(eventMapper.toDto(event)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
 
     }
@@ -49,6 +49,17 @@ public class EventController {
         eventService.deleteEvent(id);
         return ResponseEntity.ok().build();
     }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EventDto> updateEvent(@PathVariable Integer id, @RequestBody EventDto eventDto) {
+        Event event = eventMapper.toEntity(eventDto);
+        event = eventService.updateEvent(event);
+        return ResponseEntity.ok().build();
+
+
+    }
+
 
 
 

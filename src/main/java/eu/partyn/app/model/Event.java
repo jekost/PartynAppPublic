@@ -36,4 +36,7 @@ public class Event {
     @NotNull
     private String description;
 
+    @NotNull
+    private Boolean topPick;
+
 }

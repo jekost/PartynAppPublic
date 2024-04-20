@@ -69,6 +69,7 @@ components:
         - dateTime
         - ticketPrice
         - description
+        - topPick
       properties:
         id:
           type: integer
@@ -81,6 +82,8 @@ components:
           type: integer
         description:
           type: string
+        topPick:
+          type: boolean
 
 
 

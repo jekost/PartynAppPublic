@@ -43,5 +43,22 @@ public class EventService {
         eventRepository.delete(event);
     }
 
+    @Transactional
+    public Event updateEvent(Event event) {
+        Event existingEvent = eventRepository.findById(event.getId())
+                .orElseThrow(() -> new EventNotFoundException(event.getId()));
+
+
+        existingEvent.setName((event.getName()));
+        existingEvent.setDescription(event.getDescription());
+        existingEvent.setDateTime(event.getDateTime());
+        existingEvent.setTicketPrice(event.getTicketPrice());
+        existingEvent.setTopPick(event.getTopPick());
+
+        return eventRepository.save(event);
+
+
+    }
+
 
 }
