@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Handles CRUD operations for events.
+ * Controller for managing events. Supports operations to create, retrieve, update, and delete events.
  */
 @RestController
 @RequestMapping("/events")

@@ -4,17 +4,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
 
 /**
- * Represents an event in the system.
+ * Entity representing an event.
  */
 @Entity
 @Data
@@ -27,19 +29,20 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotNull
+    @NotBlank(message = "Event name cannot be blank")
     private String name;
 
-    @NotNull
+    @NotNull(message = "Date and time cannot be null")
     private LocalDateTime dateTime;
 
-    @NotNull
+    @NotNull(message = "Ticket price cannot be null")
+    @Positive(message = "Ticket price must be positive")
     private Integer ticketPrice;
 
-    @NotNull
+    @NotBlank(message = "Description cannot be blank")
     private String description;
 
-    @NotNull
+    @NotNull(message = "Top pick status cannot be null")
     private Boolean topPick;
 
 }

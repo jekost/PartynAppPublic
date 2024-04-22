@@ -1,6 +1,7 @@
 package eu.partyn.app.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +28,9 @@ public class ApplicationUser implements UserDetails {
     private Integer userId;
 
     @Column(unique = true)
+    @NotBlank(message = "Username cannot be blank")
     private String username;
+    @NotBlank(message = "Password cannot be blank")
     private String password;
 
     @ManyToMany(fetch=FetchType.EAGER)

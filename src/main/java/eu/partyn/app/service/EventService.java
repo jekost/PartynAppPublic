@@ -16,8 +16,10 @@ import java.util.Optional;
  */
 @AllArgsConstructor
 @Service
+@Transactional
 public class EventService {
     private final EventRepository eventRepository;
+
 
 
 
@@ -33,20 +35,18 @@ public class EventService {
 
 
     // Posts an event
-    @Transactional
     public Event postEvent(Event event){
         return eventRepository.save(event);
     }
 
     // Deletes an event by a specific ID
-    @Transactional
     public void deleteEvent(Integer id){
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new EventNotFoundException(id));
         eventRepository.delete(event);
     }
 
-    @Transactional
+
     public Event updateEvent(Event event) {
         Event existingEvent = eventRepository.findById(event.getId())
                 .orElseThrow(() -> new EventNotFoundException(event.getId()));

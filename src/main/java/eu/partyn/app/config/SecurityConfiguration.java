@@ -38,6 +38,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfiguration {
 
     private final RSAKeyProperties keys;
+    private static final String ROLE_ADMIN = "ADMIN";
+    private static final String ROLE_USER = "USER";
 
 
 
@@ -73,8 +75,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/auth/login/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/events/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/events/user/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/events/admin/**").hasRole(ROLE_ADMIN)
+                        .requestMatchers("/events/user/**").hasAnyRole(ROLE_ADMIN, ROLE_USER)
                         .requestMatchers("/events/**").permitAll()
                         .anyRequest().authenticated()  // Require authentication for all other requests
                 )
