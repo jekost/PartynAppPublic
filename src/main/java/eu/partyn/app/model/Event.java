@@ -13,6 +13,9 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
+/**
+ * Represents an event in the system.
+ */
 @Entity
 @Data
 @Builder

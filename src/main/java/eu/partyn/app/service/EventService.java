@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 
+/**
+ * Service for managing event-related business logic.
+ */
 @AllArgsConstructor
 @Service
 public class EventService {

@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+/**
+ * Handles CRUD operations for events.
+ */
 @RestController
 @RequestMapping("/events")
 @AllArgsConstructor
@@ -53,11 +56,23 @@ public class EventController {
 
     @PutMapping("/{id}")
     public ResponseEntity<EventDto> updateEvent(@PathVariable Integer id, @RequestBody EventDto eventDto) {
-        Event event = eventMapper.toEntity(eventDto);
-        event = eventService.updateEvent(event);
-        return ResponseEntity.ok().build();
+        eventDto.setId(id);
+        Event eventToUpdate = eventMapper.toEntity(eventDto);
+        Event updatedEvent = eventService.updateEvent(eventToUpdate);
+        EventDto updatedEventDto = eventMapper.toDto(updatedEvent);
+        return ResponseEntity.ok(updatedEventDto);
+    }
 
+    @GetMapping("/admin")
+    @CrossOrigin("*")
+    public String admin(){
+        return "Welcome Admin!";
+    }
 
+    @GetMapping("/user")
+    @CrossOrigin("*")
+    public String user(){
+        return "Welcome User!";
     }
 
 
