@@ -6,8 +6,11 @@ import eu.partyn.app.dto.RegistrationDTO;
 import eu.partyn.app.model.ApplicationUser;
 import eu.partyn.app.service.AuthenticationService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+
 
 
 /**
@@ -33,9 +36,19 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
-    public LoginResponseDTO loginUser(@RequestBody RegistrationDTO body){
-        return authenticationService.loginUser(body.getUsername(), body.getPassword());
-
+    public ResponseEntity<?> loginUser(@RequestBody RegistrationDTO body) {
+        try {
+            LoginResponseDTO loginResponse = authenticationService.loginUser(body.getUsername(), body.getPassword());
+            if (loginResponse != null && loginResponse.getUser() != null && loginResponse.getJwt() != null) {
+                return ResponseEntity.ok(loginResponse);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during login");
+        }
     }
+
+
 
 }

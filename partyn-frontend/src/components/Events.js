@@ -25,11 +25,16 @@ const Events = () => {
         setLayout(layoutType);
     };
 
+    const handleFilterTopPick = () => {
+        // Handle filtering for top pick events
+    };
+
     return (
         <div className="events-container">
             <div className="toggle-buttons">
                 <button className={`button ${layout === 'list' ? 'active' : ''}`} onClick={() => handleLayoutChange('list')}>List View</button>
                 <button className={`button ${layout === 'grid' ? 'active' : ''}`} onClick={() => handleLayoutChange('grid')}>Grid View</button>
+                <button className="button" onClick={handleFilterTopPick}>Top Pick</button>
             </div>
             <EventFilter filters={filters} setFilters={setFilters} />
             <EventList events={filteredEvents} layout={layout} />
