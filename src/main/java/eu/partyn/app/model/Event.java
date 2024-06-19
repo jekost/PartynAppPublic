@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DiscriminatorFormula;
 
 import java.time.LocalDateTime;
 
@@ -36,11 +38,14 @@ public class Event {
     private LocalDateTime dateTime;
 
     @NotNull(message = "Ticket price cannot be null")
-    @Positive(message = "Ticket price must be positive")
+    @Min(0)
     private Integer ticketPrice;
 
     @NotBlank(message = "Description cannot be blank")
     private String description;
+
+    @NotBlank(message = "Location cannot be blank")
+    private String location;
 
     @NotNull(message = "Top pick status cannot be null")
     private Boolean topPick;

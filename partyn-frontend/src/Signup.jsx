@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from './assets/logo.jpg'
+import Logo from './assets/logo_transparent.png'
 
 export default function Signup() {
     return (

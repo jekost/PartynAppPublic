@@ -36,6 +36,8 @@ public class EventDto {
 
   private String description;
 
+  private String location;
+
   private Boolean topPick;
 
   public EventDto() {
@@ -45,11 +47,12 @@ public class EventDto {
   /**
    * Constructor with only required parameters
    */
-  public EventDto(String name, LocalDateTime dateTime, Integer ticketPrice, String description, Boolean topPick) {
+  public EventDto(String name, LocalDateTime dateTime, Integer ticketPrice, String description, String location, Boolean topPick) {
     this.name = name;
     this.dateTime = dateTime;
     this.ticketPrice = ticketPrice;
     this.description = description;
+    this.location = location;
     this.topPick = topPick;
   }
 
@@ -148,6 +151,25 @@ public class EventDto {
     this.description = description;
   }
 
+  public EventDto location(String location) {
+    this.location = location;
+    return this;
+  }
+
+  /**
+   * Get location
+   * @return location
+  */
+  @NotNull 
+  @JsonProperty("location")
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
   public EventDto topPick(Boolean topPick) {
     this.topPick = topPick;
     return this;
@@ -181,12 +203,13 @@ public class EventDto {
         Objects.equals(this.dateTime, event.dateTime) &&
         Objects.equals(this.ticketPrice, event.ticketPrice) &&
         Objects.equals(this.description, event.description) &&
+        Objects.equals(this.location, event.location) &&
         Objects.equals(this.topPick, event.topPick);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, dateTime, ticketPrice, description, topPick);
+    return Objects.hash(id, name, dateTime, ticketPrice, description, location, topPick);
   }
 
   @Override
@@ -198,6 +221,7 @@ public class EventDto {
     sb.append("    dateTime: ").append(toIndentedString(dateTime)).append("\n");
     sb.append("    ticketPrice: ").append(toIndentedString(ticketPrice)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    topPick: ").append(toIndentedString(topPick)).append("\n");
     sb.append("}");
     return sb.toString();
