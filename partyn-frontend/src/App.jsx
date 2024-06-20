@@ -5,6 +5,7 @@ import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import Signup from './Signup.jsx';
 import AdminPanel from './AdminPanel.jsx';
+import Locations from './Locations.jsx';
 import './App.css';
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Events />} />
                     <Route path="/admin" element={<AdminPanel />} />
+                    <Route path="/locations" element={<Locations />} />
                 </Routes>
                 <Footer />
                 {showSignup && (
