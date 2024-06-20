@@ -41,77 +41,79 @@ const AdminPanel = () => {
     };
 
     return (
-        <div className="p-6 bg-gray-900 text-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">Post a New Event</h2>
-            {error && <p className="text-red-500">{error}</p>}
-            {success && <p className="text-green-500">{success}</p>}
-            <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2" htmlFor="name">Event Name</label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full p-2 bg-gray-800 rounded"
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2" htmlFor="dateTime">Date and Time</label>
-                    <input
-                        type="datetime-local"
-                        id="dateTime"
-                        value={dateTime}
-                        onChange={(e) => setDateTime(e.target.value)}
-                        className="w-full p-2 bg-gray-800 rounded"
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2" htmlFor="ticketPrice">Ticket Price</label>
-                    <input
-                        type="number"
-                        id="ticketPrice"
-                        value={ticketPrice}
-                        onChange={(e) => setTicketPrice(e.target.value)}
-                        className="w-full p-2 bg-gray-800 rounded"
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2" htmlFor="description">Description</label>
-                    <textarea
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="w-full p-2 bg-gray-800 rounded"
-                        required
-                    ></textarea>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2" htmlFor="location">Location</label>
-                    <input
-                        type="text"
-                        id="location"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        className="w-full p-2 bg-gray-800 rounded"
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-bold mb-2" htmlFor="topPick">Top Pick</label>
-                    <input
-                        type="checkbox"
-                        id="topPick"
-                        checked={topPick}
-                        onChange={(e) => setTopPick(e.target.checked)}
-                        className="mr-2"
-                    />
-                </div>
-                <button type="submit" className="bg-blue-500 p-2 rounded">Submit</button>
-            </form>
+        <div className="relative min-h-screen bg-gradient-to-r from-purple-950 to-orange-700 py-6 flex items-center justify-center sm:py-12">
+            <div className="relative w-full max-w-4xl bg-gray-950 bg-opacity-80 text-white rounded-2xl shadow-lg p-8">
+                <h2 className="text-3xl font-bold mb-6 text-center">Post a New Event</h2>
+                {error && <p className="text-red-500 text-center">{error}</p>}
+                {success && <p className="text-green-500 text-center">{success}</p>}
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                        <label className="block text-sm font-bold mb-2" htmlFor="name">Event Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-2" htmlFor="dateTime">Date and Time</label>
+                        <input
+                            type="datetime-local"
+                            id="dateTime"
+                            value={dateTime}
+                            onChange={(e) => setDateTime(e.target.value)}
+                            className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-2" htmlFor="ticketPrice">Ticket Price</label>
+                        <input
+                            type="number"
+                            id="ticketPrice"
+                            value={ticketPrice}
+                            onChange={(e) => setTicketPrice(e.target.value)}
+                            className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-2" htmlFor="description">Description</label>
+                        <textarea
+                            id="description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            required
+                        ></textarea>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-2" htmlFor="location">Location</label>
+                        <input
+                            type="text"
+                            id="location"
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                            className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            required
+                        />
+                    </div>
+                    <div className="flex items-center">
+                        <input
+                            type="checkbox"
+                            id="topPick"
+                            checked={topPick}
+                            onChange={(e) => setTopPick(e.target.checked)}
+                            className="mr-2 h-5 w-5 text-blue-600 focus:ring-blue-500 rounded"
+                        />
+                        <label className="block text-sm font-bold" htmlFor="topPick">Top Pick</label>
+                    </div>
+                    <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition duration-200">Submit</button>
+                </form>
+            </div>
         </div>
     );
 };
