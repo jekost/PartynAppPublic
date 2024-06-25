@@ -1,47 +1,128 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 import Events from './Events.jsx';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
-import Signup from './Signup.jsx';
+import Login from './Login.jsx';
+import Register from './Register.jsx';
 import AdminPanel from './AdminPanel.jsx';
 import Locations from './Locations.jsx';
 import './App.css';
 
 const App = () => {
-    const [showSignup, setShowSignup] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState(null);
+    const [showLogin, setShowLogin] = useState(false);
+    const [showRegister, setShowRegister] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            validateToken(token);
+        }
+    }, []);
+
+    const validateToken = async (token) => {
+        try {
+            const decodedToken = jwtDecode(token);
+            const currentTime = Date.now() / 1000;
+
+            // Check if token has expired
+            if (decodedToken.exp < currentTime) {
+                handleLogoutClick();
+                return;
+            }
+
+            setIsAuthenticated(true);
+            setUser({
+                username: decodedToken.sub,
+                authorities: decodedToken.roles.split(' ')
+            });
+        } catch (error) {
+            setIsAuthenticated(false);
+            setUser(null);
+            localStorage.removeItem('token');
+        }
+    };
 
     const handleLoginClick = () => {
-        setShowSignup(true);
+        setShowLogin(true);
+        setShowRegister(false);
     };
 
-    const handleCloseSignup = () => {
-        setShowSignup(false);
+    const handleCloseLogin = () => {
+        setShowLogin(false);
     };
 
-    // You should manage user roles here, for example, isAdmin can be set based on user authentication state
-    const isAdmin = true; // Set this based on your authentication logic
+    const handleLoginSuccess = (jwt, user) => {
+        setIsAuthenticated(true);
+        setUser(user);
+        localStorage.setItem('token', jwt);
+        setShowLogin(false);
+        validateToken(jwt);
+    };
+
+    const handleRegisterClick = () => {
+        setShowRegister(true);
+        setShowLogin(false);
+    };
+
+    const handleRegisterSuccess = () => {
+        setShowRegister(false);
+        setShowLogin(true);
+    };
+
+    const handleLogoutClick = () => {
+        setIsAuthenticated(false);
+        setUser(null);
+        localStorage.removeItem('token');
+    };
+
+    const isAdmin = user?.authorities?.includes('ADMIN');
+    console.log('isAdmin:', isAdmin);
 
     return (
         <Router>
             <div className="App">
-                <Header onLoginClick={handleLoginClick} isAdmin={isAdmin} />
+                <Header
+                    onLoginClick={handleLoginClick}
+                    onLogoutClick={handleLogoutClick}
+                    isAuthenticated={isAuthenticated}
+                    user={user}
+                    isAdmin={isAdmin}
+                />
                 <Routes>
                     <Route path="/" element={<Events />} />
-                    <Route path="/admin" element={<AdminPanel />} />
+                    {isAdmin && <Route path="/admin" element={<AdminPanel />} />}
                     <Route path="/locations" element={<Locations />} />
+                    <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} onShowRegister={handleRegisterClick} />} />
+                    <Route path="/register" element={<Register onRegisterSuccess={handleRegisterSuccess} onShowLogin={handleLoginClick} />} />
                 </Routes>
                 <Footer />
-                {showSignup && (
+                {showLogin && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
                         <div className="relative w-full max-w-2xl">
                             <button
                                 className="absolute top-0 right-0 m-4 text-white text-2xl"
-                                onClick={handleCloseSignup}
+                                onClick={handleCloseLogin}
                             >
                                 &times;
                             </button>
-                            <Signup />
+                            <Login onLoginSuccess={handleLoginSuccess} onShowRegister={handleRegisterClick} />
+                        </div>
+                    </div>
+                )}
+                {showRegister && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
+                        <div className="relative w-full max-w-2xl">
+                            <button
+                                className="absolute top-0 right-0 m-4 text-white text-2xl"
+                                onClick={handleCloseLogin}
+                            >
+                                &times;
+                            </button>
+                            <Register onRegisterSuccess={handleRegisterSuccess} onShowLogin={handleLoginClick} />
                         </div>
                     </div>
                 )}

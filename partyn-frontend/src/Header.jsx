@@ -10,7 +10,7 @@ import {
 const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Events', href: '/' },
-    { name: 'Locations', href: '/Locations' },
+    { name: 'Locations', href: '/locations' },
     { name: 'Contact', href: '#' },
 ];
 
@@ -18,7 +18,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
-export default function Header({ onLoginClick, isAdmin }) {
+export default function Header({ onLoginClick, onLogoutClick, isAuthenticated, user, isAdmin }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
@@ -48,13 +48,25 @@ export default function Header({ onLoginClick, isAdmin }) {
                         </Link>
                     )}
                 </div>
-                <div className="hidden md:flex md:items-center">
-                    <button
-                        onClick={onLoginClick}
-                        className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium"
-                    >
-                        Log in
-                    </button>
+                <div className="hidden md:flex md:items-center space-x-4">
+                    {isAuthenticated ? (
+                        <>
+                            <span className="text-white">{user?.username}</span>
+                            <button
+                                onClick={onLogoutClick}
+                                className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                            >
+                                Log out
+                            </button>
+                        </>
+                    ) : (
+                        <button
+                            onClick={onLoginClick}
+                            className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium"
+                        >
+                            Log in
+                        </button>
+                    )}
                 </div>
                 <div className="md:hidden flex items-center">
                     <button
@@ -103,12 +115,24 @@ export default function Header({ onLoginClick, isAdmin }) {
                         </div>
                         <div className="border-t border-gray-700 mt-6 pt-4 pb-3">
                             <div className="flex items-center px-5">
-                                <button
-                                    onClick={onLoginClick}
-                                    className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium w-full"
-                                >
-                                    Log in
-                                </button>
+                                {isAuthenticated ? (
+                                    <>
+                                        <span className="text-white">{user?.username}</span>
+                                        <button
+                                            onClick={onLogoutClick}
+                                            className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white px-4 py-2 rounded-md text-sm font-medium w-full"
+                                        >
+                                            Log out
+                                        </button>
+                                    </>
+                                ) : (
+                                    <button
+                                        onClick={onLoginClick}
+                                        className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium w-full"
+                                    >
+                                        Log in
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </Dialog.Panel>
