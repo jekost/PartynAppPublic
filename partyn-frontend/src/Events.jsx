@@ -42,6 +42,7 @@ const Events = () => {
             try {
                 //const response = await axios.get('http://localhost:8080/events');//dev
                 const response = await axios.get('https://partynapp-backend.onrender.com/events');//prod
+                //const response = await axios.get('https://yourmom-fuckme.oonrender.com/events');//ass
                 const sortedEvents = response.data.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
                 setEvents(sortedEvents);
 

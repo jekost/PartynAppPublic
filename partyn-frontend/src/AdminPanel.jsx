@@ -25,7 +25,15 @@ const AdminPanel = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/events', eventData, {
+            //dev
+            /*const response = await axios.post('http://localhost:8080/events', eventData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });*/
+
+            //prod
+            const response = await axios.post('https://partynapp-backend.onrender.com/events', eventData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
