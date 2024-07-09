@@ -40,7 +40,8 @@ const Events = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/events');
+                //const response = await axios.get('http://localhost:8080/events');//dev
+                const response = await axios.get('https://partynapp-backend.onrender.com/events');//prod
                 const sortedEvents = response.data.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
                 setEvents(sortedEvents);
 
