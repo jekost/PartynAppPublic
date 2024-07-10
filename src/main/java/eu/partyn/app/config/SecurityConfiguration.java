@@ -140,7 +140,8 @@ public class SecurityConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173")
+                        //.allowedOrigins("http://localhost:5173")//dev
+                        .allowedOrigins("https://partynapp-frontend.onrender.com/")//prod
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true)
