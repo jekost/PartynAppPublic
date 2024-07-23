@@ -41,7 +41,19 @@ const Events = () => {
         const fetchEvents = async () => {
             try {
                 //const response = await axios.get('http://localhost:8080/events');//dev
-                const response = await axios.get('https://partynapp-backend.onrender.com/events');//prod
+                //const response = await axios.get('https://partynapp-backend.onrender.com/events');//prod
+                const response = await fetch('https://partynapp-backend.onrender.com/events', {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        Authorization: `Bearer: ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                console.log(response.json())
+
+                
                 //const response = await axios.get('https://yourmom-fuckme.oonrender.com/events');//ass
                 const sortedEvents = response.data.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
                 setEvents(sortedEvents);

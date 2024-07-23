@@ -11,6 +11,8 @@ import Locations from './Locations.jsx';
 import './App.css';
 
 const App = () => {
+
+
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
     const [showLogin, setShowLogin] = useState(false);
