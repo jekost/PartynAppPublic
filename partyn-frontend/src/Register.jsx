@@ -9,10 +9,8 @@ const Register = ({ onRegisterSuccess, onShowLogin }) => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/auth/register', {
-                username,
-                password
-            });
+            //const response = await axios.post('http://localhost:8080/auth/register', {username, password});
+            const response = await axios.post('http://localhost:8080/auth/register', {username, password});
             onRegisterSuccess(response.data);
             setError('');
         } catch (error) {

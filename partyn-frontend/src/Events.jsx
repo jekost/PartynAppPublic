@@ -49,6 +49,7 @@ const Events = () => {
                 const newPositions = sortedEvents.map(() => getRandomPosition());
                 setPositions(newPositions);
             } catch (error) {
+                console.log("error thrown")
                 setError(error.message);
             }
         };
