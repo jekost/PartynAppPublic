@@ -48,7 +48,13 @@ const Events = () => {
                             "Access-Control-Allow-Origin": "*",
                         },
                     }
-                );//prod
+                ).then((response) => {
+                    console.log(response.data);
+                    console.log(response.status);
+                    console.log(response.statusText);
+                    console.log(response.headers);
+                    console.log(response.config);
+                });//prod
                 //const response = await axios.get('https://yourmom-fuckme.oonrender.com/events');//ass
                 const sortedEvents = response.data.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
                 setEvents(sortedEvents);
